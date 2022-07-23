@@ -57,7 +57,7 @@ namespace All_Spice.Services
             original.Picture = recipeData.Picture ?? original.Picture;
             original.Title = recipeData.Title ?? original.Title;
             original.Subtitle = recipeData.Subtitle ?? original.Subtitle;
-            original.category = recipeData.category ?? original.Subtitle;
+            original.Category = recipeData.Category ?? original.Category;
 
             _repo.Edit(original);
             return original;

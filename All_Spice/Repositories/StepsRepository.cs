@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using All_Spice.Models;
 using Dapper;
 
@@ -36,6 +38,37 @@ namespace All_Spice.Repositories
             FROM steps s
             WHERE id = @id";
             return _db.QueryFirstOrDefault<Step>(sql, new { id });
+        }
+
+        internal List<Step> GetStepsByRecipe(int recipeId, string userId)
+        {
+            string sql = @"
+            SELECT
+            s.*
+            FROM steps s
+           WHERE recipeId = @recipeId";
+            return _db.Query<Step>(sql, new { recipeId }).ToList();
+        }
+
+        internal Step Edit(Step original)
+        {
+            string sql = @"
+            UPDATE steps
+            SET
+            stepPosition = @StepPosition,
+            body = @body
+            WHERE id = @id";
+            _db.Execute(sql, original);
+            return original;
+        }
+
+        internal string Delete(int id)
+        {
+            string sql = @"
+            DELETE FROM steps 
+            WHERE id = @id";
+            _db.Execute(sql, new { id });
+            return ("Delorted");
         }
     }
 }

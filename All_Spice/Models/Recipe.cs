@@ -8,7 +8,7 @@ namespace All_Spice.Models
 
         public DateTime CreatedAt { get; set; }
 
-        public DateTime updatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         public string Picture { get; set; }
 
@@ -16,12 +16,17 @@ namespace All_Spice.Models
 
         public string Subtitle { get; set; }
 
-        public string category { get; set; }
+        public string Category { get; set; }
 
         public string CreatorId { get; set; }
 
         public Profile Creator { get; set; }
 
 
+    }
+
+    public class FavoriteRecipeViewModel : Recipe
+    {
+        public int FavoriteId { get; set; }
     }
 }

@@ -73,10 +73,10 @@ namespace All_Spice.Repositories
             string sql = @"
             UPDATE recipes
             SET
-            title = @title,
-            picture = @picture,
-            subtitle = @subtitle,
-            category = @category
+            title = @Title,
+            picture = @Picture,
+            subtitle = @Subtitle,
+            category = @Category
             ";
             _db.Execute(sql, original);
         }

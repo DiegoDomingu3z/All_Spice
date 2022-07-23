@@ -18,10 +18,13 @@ namespace All_Spice.Controllers
 
         private readonly IngredientsService _ins;
 
-        public RecipesController(RecipesService rs, IngredientsService ins)
+        private readonly StepsService _ss;
+
+        public RecipesController(RecipesService rs, IngredientsService ins, StepsService ss)
         {
             _rs = rs;
             _ins = ins;
+            _ss = ss;
         }
 
         [HttpGet]
@@ -76,6 +79,27 @@ namespace All_Spice.Controllers
         }
 
 
+
+        [HttpGet("{id}/steps")]
+        [Authorize]
+        public async Task<ActionResult<List<Step>>> GetStepsByRecipe(int id)
+        {
+            try
+            {
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                List<Step> steps = _ss.GetStepsByRecipe(id, userInfo.Id);
+                return steps;
+
+            }
+            catch (System.Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+
+        }
+
+
         [HttpPost]
         [Authorize]
 
@@ -88,7 +112,7 @@ namespace All_Spice.Controllers
                 Recipe newRecipe = _rs.Create(recipeData);
                 recipeData.CreatedAt = new DateTime();
                 newRecipe.Creator = userInfo;
-                recipeData.updatedAt = new DateTime();
+                recipeData.UpdatedAt = new DateTime();
 
                 return Ok(newRecipe);
             }

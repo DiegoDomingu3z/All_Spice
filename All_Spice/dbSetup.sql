@@ -41,4 +41,15 @@ CREATE TABLE
         body TEXT NOT NULL,
         recipeId INT NOT NULL,
         FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
-    )
+    );
+
+CREATE TABLE
+    IF NOT EXISTS favorites(
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "time created",
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'last update',
+        accountId VARCHAR(255) NOT NULL,
+        recipeId INT NOT NULL,
+        FOREIGN KEY (accountId) REFERENCES accounts(id) ON DELETE CASCADE,
+        FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
+    ) default charset utf8;
