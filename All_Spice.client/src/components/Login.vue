@@ -17,12 +17,13 @@
       >
         <div v-if="account.picture">
           <img
+            :title="account.name"
             :src="account.picture"
             alt="account photo"
             height="40"
-            class="rounded"
+            class="account-img"
           />
-          <span class="mx-3 text-success lighten-30">{{ account.name }}</span>
+          <!-- <span class="mx-3 text-success lighten-30">{{ account.name }}</span> -->
         </div>
       </div>
       <div
@@ -80,5 +81,9 @@ export default {
 }
 .hoverable {
   cursor: pointer;
+}
+
+.account-img {
+  border-radius: 50%;
 }
 </style>
