@@ -34,20 +34,26 @@ namespace All_Spice.Repositories
             string sql = @"
            SELECT 
             a.*,
-            f.*,
-            r.*
+            r.*,
+            f.id AS FavoriteId
             FROM favorites f
             JOIN recipes r ON f.recipeId = r.id
             JOIN accounts a ON r.creatorId = a.id
             WHERE f.accountId = @id;
             ";
-            List<FavoriteRecipeViewModel> recipes = _db.Query<Account, Favorite, FavoriteRecipeViewModel, FavoriteRecipeViewModel>(sql, (account, favorite, recipe) =>
+            return _db.Query<Account, FavoriteRecipeViewModel, FavoriteRecipeViewModel>(sql, (prof, recipe) =>
             {
-                recipe.Creator = account;
-                recipe.FavoriteId = favorite.Id;
+                recipe.Creator = prof;
                 return recipe;
-            }, new { id }).ToList<FavoriteRecipeViewModel>();
-            return recipes;
+            }, new { id }).ToList();
+
+            // List<FavoriteRecipeViewModel> recipes = _db.Query<Account, Favorite, FavoriteRecipeViewModel, FavoriteRecipeViewModel>(sql, (account, favorite, recipe) =>
+            // {
+            //     recipe.Creator = account;
+            //     recipe.FavoriteId = favorite.Id;
+            //     return recipe;
+            // }, new { id }).ToList<FavoriteRecipeViewModel>();
+            // return recipes;
         }
 
         internal Favorite GetById(int id)

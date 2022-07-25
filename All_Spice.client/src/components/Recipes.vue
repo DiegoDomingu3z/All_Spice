@@ -1,6 +1,7 @@
 <template>
   <div class="col-md-4 mt-5">
     <div
+      @click="setActive"
       class="elevation-4 cover-img me-3 ms-3 rounded selectable"
       :style="`background-image: url(${recipe.picture})`"
     >
@@ -11,7 +12,7 @@
           </p>
         </div>
         <div
-          v-if="favorite.recipeId == recipe.id"
+          v-if="favorite.includes(recipeId) == recipe.id"
           @click="favoriteRecipe"
           class=""
         >
@@ -57,6 +58,8 @@ import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
 import { AppState } from '../AppState'
 import { favoritesService } from '../services/FavoriteService'
+import { recipesService } from '../services/RecipesService'
+import { Modal } from 'bootstrap'
 
 export default {
   props: { recipe: { type: Object, required: true } },
@@ -72,8 +75,20 @@ export default {
           logger.log(error)
         }
       },
+      async setActive() {
+        try {
+          await recipesService.getById(props.recipe.id)
+          Modal.getOrCreateInstance(
+            document.getElementById("recipe-modal")
+          ).show();
+        } catch (error) {
+          Pop.toast(error.message)
+          logger.log(error)
+        }
+      },
       account: computed(() => AppState.account),
-      favorite: computed(() => AppState.favorites)
+      favorite: computed(() => AppState.favorites),
+
     }
   }
 }

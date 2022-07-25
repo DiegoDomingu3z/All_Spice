@@ -10,11 +10,23 @@ class RecipesService {
         AppState.recipes = res.data
     }
 
+    async getById(id) {
+        const res = await api.get('api/recipes/' + id)
+        logger.log(res.data)
+        AppState.activeRecipe = res.data
+        logger.log(AppState.activeRecipe, "[Active Recipe]")
+    }
+
+
+
     async createRecipe(recipeData) {
         const res = await api.post("api/recipes", recipeData)
         logger.log(res.data)
         AppState.recipes.unshift(res.data)
     }
+
+
+
 
 
 }

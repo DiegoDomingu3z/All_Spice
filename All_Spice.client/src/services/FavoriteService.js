@@ -15,7 +15,6 @@ class FavoritesService {
         AppState.favorites.push(res.data)
         AppState.myFavorites.push(res.data)
         logger.log(AppState.favorites, 'favorites appState')
-
     }
 
 }

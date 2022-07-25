@@ -12,6 +12,7 @@
       <p class="fs-1">+</p>
     </button>
   </div>
+  <RecipeDetailedModal />
 </template>
 
 
@@ -22,13 +23,13 @@ import { logger } from '../utils/Logger'
 import { recipesService } from '../services/RecipesService'
 import { AppState } from '../AppState'
 import { favoritesService } from '../services/FavoriteService'
+import { ingredientsService } from '../services/IngredientsService'
 export default {
   setup() {
     onMounted(async () => {
       try {
         await recipesService.getAll()
         await favoritesService.GetFavorites()
-
       } catch (error) {
         Pop.toast(error.message)
         logger.log(error)
