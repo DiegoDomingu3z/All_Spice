@@ -38,13 +38,22 @@
                       <span>{{ s.body }}</span>
                     </div>
                   </div>
-                  <div class="text-center mx-4">
-                    <input
-                      class="form-control"
-                      type="text"
-                      placeholder="Steps..."
-                    />
-                  </div>
+                  <form @submit.prevent="createStep">
+                    <div class="col-12 d-flex">
+                      <input
+                        class="form-control position-input"
+                        type="text"
+                        placeholder="Steps..."
+                        v-model="stepData.body"
+                      />
+                      <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Steps..."
+                        v-model="stepData.body"
+                      />
+                    </div>
+                  </form>
                 </div>
                 <div class="col-12 pt-4">
                   <div class="p-2 mx-4 bg-success text-center rounded-top">
@@ -75,7 +84,7 @@
 
 
 <script>
-import { computed } from '@vue/reactivity'
+import { computed, ref } from '@vue/reactivity'
 import { AppState } from '../AppState'
 import { onMounted, watchEffect } from '@vue/runtime-core'
 import { logger } from '../utils/Logger'
@@ -84,6 +93,7 @@ import { ingredientsService } from '../services/IngredientsService'
 import { stepsService } from '../services/StepsService'
 export default {
   setup() {
+    const stepData = ref({})
     watchEffect(async () => {
       try {
         if (AppState.activeRecipe.id) {
@@ -96,8 +106,15 @@ export default {
       }
     })
     return {
+      stepData,
       async createStep() {
-
+        try {
+          stepData.recipeId = AppState.activeRecipe.id
+          await stepsService.createStep(stepData.value)
+        } catch (error) {
+          logger.log(error)
+          Pop.toast(error.message)
+        }
       }
       , recipe: computed(() => AppState.activeRecipe),
       ingredients: computed(() => AppState.activeIngredients),
@@ -120,5 +137,9 @@ export default {
   background: #f0f4f2;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   overflow-y: scroll;
+}
+
+.position-input {
+  width: 80px;
 }
 </style>
