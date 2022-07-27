@@ -32,6 +32,11 @@ namespace All_Spice.Services
 
         internal Favorite Create(Favorite favoriteData)
         {
+            Favorite exists = _fp.CheckForExists(favoriteData);
+            if (exists != null)
+            {
+                return exists;
+            }
             return _fp.Create(favoriteData);
         }
 

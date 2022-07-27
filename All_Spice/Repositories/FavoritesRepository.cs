@@ -47,13 +47,13 @@ namespace All_Spice.Repositories
                 return recipe;
             }, new { id }).ToList();
 
-            // List<FavoriteRecipeViewModel> recipes = _db.Query<Account, Favorite, FavoriteRecipeViewModel, FavoriteRecipeViewModel>(sql, (account, favorite, recipe) =>
-            // {
-            //     recipe.Creator = account;
-            //     recipe.FavoriteId = favorite.Id;
-            //     return recipe;
-            // }, new { id }).ToList<FavoriteRecipeViewModel>();
-            // return recipes;
+
+        }
+
+        internal Favorite CheckForExists(Favorite favoriteData)
+        {
+            string sql = "SELECT * FROM favorites where recipeId = @recipeId";
+            return _db.QueryFirstOrDefault<Favorite>(sql, favoriteData);
         }
 
         internal Favorite GetById(int id)

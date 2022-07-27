@@ -3,15 +3,15 @@
     <div
       @click="setActive"
       class="elevation-4 cover-img me-3 ms-3 rounded selectable"
-      :style="`background-image: url(${recipe.picture})`"
+      :style="`background-image: url(${favorites.picture})`"
     >
       <div class="text-white p-2 d-flex justify-content-between">
         <div>
           <p class="blur rounded-pill px-3 border border-white border-1">
-            {{ recipe.category }}
+            {{ favorites.category }}
           </p>
         </div>
-        <div @click="favoriteRecipe" class="">
+        <div class="">
           <i
             class="
               mdi mdi-cards-heart-outline
@@ -38,9 +38,9 @@
       </div>
       <div class="details-blur bottom mx-3 rounded">
         <div class="fs-5 text-white">
-          <b>{{ recipe.title }}</b>
+          <b>{{ favorites.title }}</b>
         </div>
-        <div class="text-white">{{ recipe.subtitle }}</div>
+        <div class="text-white">{{ favorites.subtitle }}</div>
       </div>
     </div>
   </div>
@@ -49,42 +49,24 @@
 
 <script>
 import { computed } from '@vue/reactivity'
-import { accountService } from '../services/AccountService'
-import { logger } from '../utils/Logger'
-import Pop from '../utils/Pop'
 import { AppState } from '../AppState'
-import { favoritesService } from '../services/FavoriteService'
 import { recipesService } from '../services/RecipesService'
 import { Modal } from 'bootstrap'
-
+import { logger } from '../utils/Logger'
+import Pop from '../utils/Pop'
 export default {
-  props: { recipe: { type: Object, required: true } },
+  props: { favorites: { type: Object, required: true } },
   setup(props) {
     return {
-
-      async favoriteRecipe() {
-        try {
-          await favoritesService.favoriteRecipe({ recipeId: props.recipe.id, accountId: AppState.account.id })
-
-        } catch (error) {
-          Pop.toast(error.message)
-          logger.log(error)
-        }
-      },
       async setActive() {
         try {
-          await recipesService.getById(props.recipe.id)
-          Modal.getOrCreateInstance(
-            document.getElementById("recipe-modal")
-          ).show();
+          await recipesService.getById(props.favorites.id)
+          Modal.getOrCreateInstance(document.getElementById("recipe-modal")).show();
         } catch (error) {
           Pop.toast(error.message)
           logger.log(error)
         }
       },
-      account: computed(() => AppState.account),
-      favorite: computed(() => AppState.favorites),
-
 
     }
   }

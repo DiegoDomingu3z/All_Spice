@@ -29,14 +29,15 @@ export default {
     onMounted(async () => {
       try {
         await recipesService.getAll()
-        await favoritesService.GetFavorites()
+
       } catch (error) {
         Pop.toast(error.message)
         logger.log(error)
       }
     })
     return {
-      recipe: computed(() => AppState.recipes)
+      recipe: computed(() => AppState.recipes),
+      account: computed(() => AppState.account)
     }
   }
 }

@@ -5,6 +5,8 @@ import { router } from '../router'
 import { accountService } from './AccountService'
 import { api } from './AxiosService'
 import { socketService } from './SocketService'
+import { favoritesService } from './FavoriteService'
+import { logger } from '../utils/Logger'
 
 export const AuthService = initialize({
   domain,
@@ -20,13 +22,17 @@ export const AuthService = initialize({
   }
 })
 
-AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function() {
+AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function () {
   api.defaults.headers.authorization = AuthService.bearer
   api.interceptors.request.use(refreshAuthToken)
   AppState.user = AuthService.user
   await accountService.getAccount()
   socketService.authenticate(AuthService.bearer)
   // NOTE if there is something you want to do once the user is authenticated, place that here
+  await favoritesService.getFavorites()
+  logger.log(AppState.myRecipes, 'my recipes')
+  logger.log(AppState.account)
+
 })
 
 async function refreshAuthToken(config) {

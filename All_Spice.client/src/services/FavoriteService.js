@@ -4,7 +4,7 @@ import { api } from "./AxiosService"
 
 class FavoritesService {
 
-    async GetFavorites() {
+    async getFavorites() {
         const res = await api.get('account/favorites')
         logger.log(res.data)
         AppState.myFavorites = res.data
