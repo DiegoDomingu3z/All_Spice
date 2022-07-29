@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="createRecipe">
+  <form @submit.prevent="createRecipe" id="recipe">
     <div class="row">
       <div class="col-6">
         <label for="">Title</label>
@@ -58,6 +58,7 @@ import { ref } from '@vue/reactivity'
 import { recipesService } from '../services/RecipesService'
 import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
+import { Modal } from 'bootstrap'
 export default {
   setup() {
     const recipeData = ref({})
@@ -66,6 +67,8 @@ export default {
       async createRecipe() {
         try {
           await recipesService.createRecipe(recipeData.value)
+
+          Modal.getOrCreateInstance(document.getElementById('recipe')).hide();
         } catch (error) {
           Pop.toast(error.message)
           logger.log(error)

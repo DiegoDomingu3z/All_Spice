@@ -17,15 +17,13 @@ class RecipesService {
         logger.log(AppState.activeRecipe, "[Active Recipe]")
     }
 
-    async getMyRecipes() {
-        await this.getAll
-        AppState.myRecipes = AppState.recipes.filter(r => r.creatorId == AppState.account.id)
-    }
+
+
+
 
     async searchRecipe(query = '') {
-        AppState.query = query
         const res = await api.get(`api/recipes?query=${query}`)
-        logger.log(res.data)
+        logger.log(res.data, '[res search]')
         AppState.recipes = res.data
     }
 

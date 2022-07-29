@@ -151,9 +151,7 @@
                         placeholder="title..."
                         v-model="ingredientData.name"
                       />
-                      <button type="submit" class="btn btn-outline-success">
-                        +
-                      </button>
+                      <button class="btn btn-outline-success">+</button>
                     </div>
                   </form>
                 </div>

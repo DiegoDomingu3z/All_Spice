@@ -15,9 +15,14 @@ namespace All_Spice.Services
             _repo = repo;
         }
 
-        internal List<Recipe> GetAll()
+        internal List<Recipe> GetAll(string query = "")
         {
-            return _repo.GetAll();
+            return _repo.GetAll(query);
+        }
+
+        internal List<Recipe> GetRecipesByAccount(string id)
+        {
+            return _repo.GetRecipesByAccount(id);
         }
 
         internal Recipe GetById(int id) //Might need to add Business logic
@@ -63,6 +68,8 @@ namespace All_Spice.Services
             return original;
 
         }
+
+
 
         internal Recipe Delete(int id, string userId)
         {

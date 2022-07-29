@@ -9,22 +9,27 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace All_Spice.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
+
     public class AccountController : ControllerBase
     {
         private readonly AccountService _accountService;
 
         private readonly FavoritesService _fs;
 
-        public AccountController(AccountService accountService, FavoritesService fs)
+        private readonly RecipesService _rs;
+
+        public AccountController(AccountService accountService, FavoritesService fs, RecipesService rs)
         {
             _accountService = accountService;
             _fs = fs;
+            _rs = rs;
         }
 
         [HttpGet]
-        [Authorize]
+
         public async Task<ActionResult<Account>> Get()
         {
             try
@@ -38,8 +43,25 @@ namespace All_Spice.Controllers
             }
         }
 
+
+        [HttpGet("recipes")]
+        public async Task<ActionResult<List<Recipe>>> GetrecipesByAccount()
+        {
+            try
+            {
+                Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+                List<Recipe> recipes = _rs.GetRecipesByAccount(userInfo.Id);
+                return (recipes);
+            }
+            catch (System.Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpGet("favorites")]
-        [Authorize]
+
         public async Task<ActionResult<List<FavoriteRecipeViewModel>>> GetByAccount()
 
         {

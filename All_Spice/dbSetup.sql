@@ -37,7 +37,7 @@ CREATE TABLE
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT "time created",
         updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'last update',
-        stepPosition int NOT NULL,
+        stepPosition INT NOT NULL,
         body TEXT NOT NULL,
         recipeId INT NOT NULL,
         FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE

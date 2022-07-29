@@ -12,6 +12,12 @@ class AccountService {
     }
   }
 
+  async getMyRecipes() {
+    const res = await api.get('account/recipes')
+    logger.log(res.data)
+    AppState.myRecipes = res.data
+  }
+
 
 }
 

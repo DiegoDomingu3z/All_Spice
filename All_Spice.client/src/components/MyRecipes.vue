@@ -48,19 +48,18 @@
       </div>
     </div>
   </div>
+  <RecipeDetailedModal />
 </template>
 
 
 <script>
-import { computed } from '@vue/reactivity'
-import { accountService } from '../services/AccountService'
-import { logger } from '../utils/Logger'
-import Pop from '../utils/Pop'
+import { Modal } from 'bootstrap'
 import { AppState } from '../AppState'
 import { favoritesService } from '../services/FavoriteService'
 import { recipesService } from '../services/RecipesService'
-import { Modal } from 'bootstrap'
-
+import { logger } from '../utils/Logger'
+import Pop from '../utils/Pop'
+import { computed } from '@vue/reactivity'
 export default {
   props: { recipe: { type: Object, required: true } },
   setup(props) {
@@ -89,8 +88,6 @@ export default {
       account: computed(() => AppState.account),
       favorite: computed(() => AppState.favorites),
       recipes: computed(() => AppState.recipes)
-
-
     }
   }
 }

@@ -24,7 +24,7 @@ namespace All_Spice.Repositories
             a.*
             FROM recipes r
             JOIN accounts a ON r.creatorId = a.id 
-            WHERE title LIKE @stringQuery";
+            WHERE category LIKE @stringQuery";
             return _db.Query<Recipe, Profile, Recipe>(sql, (recipe, profile) =>
             {
                 recipe.Creator = profile;
@@ -32,6 +32,22 @@ namespace All_Spice.Repositories
             }, new { stringQuery }).ToList();
         }
 
+        internal List<Recipe> GetRecipesByAccount(string id)
+        {
+            string sql = @"
+            SELECT
+            r.*,
+            a.*
+            FROM recipes r
+            JOIN accounts a ON r.creatorId = a.id 
+            WHERE r.creatorId = @id 
+            ";
+            return _db.Query<Recipe, Profile, Recipe>(sql, (recipe, profile) =>
+            {
+                recipe.Creator = profile;
+                return recipe;
+            }, new { id }).ToList();
+        }
 
         internal Recipe GetById(int id)
         {

@@ -1,27 +1,21 @@
 <template>
-  <div>this working?</div>
+  <div class="row">
+    <MyRecipes v-for="r in recipe" :key="r.id" :recipe="r" />
+  </div>
 </template>
 
 
 <script>
-import { onMounted } from '@vue/runtime-core'
+import { computed, onMounted } from '@vue/runtime-core'
 import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
 import { recipesService } from '../services/RecipesService'
 import { AppState } from '../AppState'
+import { accountService } from '../services/AccountService'
 export default {
   setup() {
-    onMounted(async () => {
-      try {
-        await recipesService.getMyRecipes()
-        logger.log(AppState.myRecipes)
-      } catch (error) {
-        logger.log(error)
-        Pop.toast(error.message)
-      }
-    })
     return {
-
+      recipe: computed(() => AppState.myRecipes)
     }
   }
 }

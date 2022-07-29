@@ -28,12 +28,12 @@ namespace All_Spice.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Recipe>>> Get(string query = "")
+        public async Task<ActionResult<List<Recipe>>> Get(string query)
         {
             try
             {
                 Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-                List<Recipe> recipes = _rs.GetAll();
+                List<Recipe> recipes = _rs.GetAll(query);
                 return Ok(recipes);
             }
             catch (System.Exception e)

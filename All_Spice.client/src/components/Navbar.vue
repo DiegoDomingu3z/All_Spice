@@ -8,21 +8,22 @@
         "
       >
         <div class="col-md-12 text-end p-2 d-flex justify-content-end">
-          <!-- <form @submit.prevent="searchRecipe"> -->
-          <div>
-            <input
-              class="rounded-pill form-control"
-              type="text"
-              placeholder="Search.."
-              v-model="search"
-            />
+          <div class="pt- me-2">
+            <form @submit.prevent="searchRecipe" id="search">
+              <div class="input-group">
+                <input
+                  class="form-control bg-white"
+                  type="text"
+                  placeholder="Search.."
+                  aria-label="search"
+                  v-model="search"
+                />
+                <button type="submit" class="btn bg-white">
+                  <i class="mdi mdi-magnify"></i>
+                </button>
+              </div>
+            </form>
           </div>
-          <div>
-            <button type="submit" class="btn border border-dark">
-              <i class="mdi mdi-magnify"></i>
-            </button>
-          </div>
-          <!-- </form> -->
           <div>
             <Login />
           </div>
@@ -97,6 +98,7 @@ import { ref } from '@vue/reactivity';
 import { recipesService } from '../services/RecipesService';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
+import { favoritesService } from '../services/FavoriteService';
 export default {
   setup() {
     const search = ref("")
@@ -105,7 +107,7 @@ export default {
       async searchRecipe() {
         try {
           logger.log('searching', search.value)
-          await recipesService.searchRecipe(`${search.value}`)
+          await recipesService.searchRecipe(search.value)
         } catch (error) {
           logger.log(error)
           Pop.toast(error.message)

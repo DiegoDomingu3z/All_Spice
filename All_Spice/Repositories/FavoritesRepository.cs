@@ -31,6 +31,7 @@ namespace All_Spice.Repositories
 
         internal List<FavoriteRecipeViewModel> GetByAccount(string id)
         {
+
             string sql = @"
            SELECT 
             a.*,
@@ -39,8 +40,7 @@ namespace All_Spice.Repositories
             FROM favorites f
             JOIN recipes r ON f.recipeId = r.id
             JOIN accounts a ON r.creatorId = a.id
-            WHERE f.accountId = @id;
-            ";
+            WHERE f.accountId = @id";
             return _db.Query<Account, FavoriteRecipeViewModel, FavoriteRecipeViewModel>(sql, (prof, recipe) =>
             {
                 recipe.Creator = prof;

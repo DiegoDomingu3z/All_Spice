@@ -3,14 +3,6 @@
     <div class="row mb-5">
       <Recipes v-for="r in recipe" :key="r.id" :recipe="r" />
     </div>
-    <button
-      type="button"
-      data-bs-toggle="modal"
-      data-bs-target="#recipe"
-      class="btn btn-success fab"
-    >
-      <p class="fs-1">+</p>
-    </button>
   </div>
   <RecipeDetailedModal />
 </template>
@@ -45,13 +37,4 @@ export default {
 
 
 <style lang="scss" scoped>
-.fab {
-  height: 60px;
-  width: 60px;
-  border-radius: 50%;
-  position: fixed;
-  bottom: 3em;
-  right: 1em;
-  z-index: 2;
-}
 </style>
