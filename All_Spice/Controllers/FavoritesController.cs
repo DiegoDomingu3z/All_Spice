@@ -55,7 +55,7 @@ namespace All_Spice.Controllers
                 favoriteData.CreatedAt = new DateTime();
                 favoriteData.UpdatedAt = new DateTime();
                 Favorite favorite = _fs.Create(favoriteData);
-                return Ok(favoriteData);
+                return Ok(favorite);
 
 
             }

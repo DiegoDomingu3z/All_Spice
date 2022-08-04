@@ -11,34 +11,6 @@
             {{ recipe.category }}
           </p>
         </div>
-        <div
-          v-if="recipes.id == favorite.recipeId"
-          @click="favoriteRecipe"
-          class=""
-        >
-          <i
-            class="
-              mdi mdi-cards-heart-outline
-              text-danger
-              fs-3
-              heart-blur
-              rounded-bottom
-              p-0
-            "
-          ></i>
-        </div>
-        <div v-else @click="favoriteRecipe" class="">
-          <i
-            class="
-              mdi mdi-heart-outline
-              text-white
-              fs-3
-              heart-blur
-              rounded-bottom
-              p-0
-            "
-          ></i>
-        </div>
       </div>
       <div class="details-blur bottom mx-3 rounded">
         <div class="fs-5 text-white">

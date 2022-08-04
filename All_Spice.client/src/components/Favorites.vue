@@ -13,8 +13,9 @@
         </div>
         <div class="">
           <i
+            @click.stop="deleteFavorite(favorites.favoriteId)"
             class="
-              mdi mdi-cards-heart-outline
+              mdi mdi-trash-can-outline
               text-danger
               fs-3
               heart-blur
@@ -23,18 +24,6 @@
             "
           ></i>
         </div>
-        <!-- <div @click="favoriteRecipe" class="">
-          <i
-            class="
-              mdi mdi-heart-outline
-              text-white
-              fs-3
-              heart-blur
-              rounded-bottom
-              p-0
-            "
-          ></i>
-        </div> -->
       </div>
       <div class="details-blur bottom mx-3 rounded">
         <div class="fs-5 text-white">
@@ -54,6 +43,7 @@ import { recipesService } from '../services/RecipesService'
 import { Modal } from 'bootstrap'
 import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
+import { favoritesService } from '../services/FavoriteService'
 export default {
   props: { favorites: { type: Object, required: true } },
   setup(props) {
@@ -67,6 +57,17 @@ export default {
           logger.log(error)
         }
       },
+
+      async deleteFavorite(id) {
+        try {
+          if (await Pop.confirm()) {
+            await favoritesService.deleteFavorite(id)
+          }
+        } catch (error) {
+          logger.log(error)
+          Pop.toast(error.message)
+        }
+      }
 
     }
   }

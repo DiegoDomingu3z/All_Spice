@@ -67,7 +67,7 @@ export default {
       async createRecipe() {
         try {
           await recipesService.createRecipe(recipeData.value)
-
+          // document.getElementById("recipe").reset();
           Modal.getOrCreateInstance(document.getElementById('recipe')).hide();
         } catch (error) {
           Pop.toast(error.message)

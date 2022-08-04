@@ -14,7 +14,13 @@ class FavoritesService {
         logger.log(res.data)
         AppState.favorites.push(res.data)
         AppState.myFavorites.push(res.data)
-        logger.log(AppState.favorites, 'favorites appState')
+        logger.log(AppState.myFavorites, 'favorites appState')
+    }
+
+    async deleteFavorite(id) {
+        const res = await api.delete('api/favorites/' + id)
+        logger.log(res.data)
+        AppState.myFavorites = AppState.myFavorites.filter(f => f.favoriteId != id)
     }
 
 }

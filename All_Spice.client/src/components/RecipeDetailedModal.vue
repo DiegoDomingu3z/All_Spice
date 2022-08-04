@@ -35,8 +35,12 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <div>{{ recipe.title }}</div>
-                  <div class="pb-3">{{ recipe.subtitle }}</div>
+                  <div class="ps-3">
+                    <h2>{{ recipe.title }}</h2>
+                  </div>
+                  <div class="pb-3 ps-3">
+                    <h5>{{ recipe.subtitle }}</h5>
+                  </div>
                   <div class="p-2 mx-4 bg-success text-center rounded-top">
                     Recipe Steps
                   </div>
@@ -127,33 +131,34 @@
                       </div>
                     </div>
                   </div>
-
-                  <form
-                    @submit.prevent="createIngredient"
-                    id="ingredient"
-                    value="reset"
-                  >
-                    <div
-                      v-if="recipe.creatorId == account.id"
-                      class="col-md-12 d-flex input-group px-4"
+                  <div>
+                    <form
+                      @submit.prevent="createIngredient"
+                      id="ingredient"
+                      value="reset"
                     >
-                      <div>
+                      <div
+                        v-if="recipe.creatorId == account.id"
+                        class="col-md-12 d-flex input-group px-4"
+                      >
+                        <div>
+                          <input
+                            class="form-control position-input"
+                            type="text"
+                            placeholder="quantity..."
+                            v-model="ingredientData.quantity"
+                          />
+                        </div>
                         <input
-                          class="form-control position-input"
+                          class="form-control"
                           type="text"
-                          placeholder="quantity..."
-                          v-model="ingredientData.quantity"
+                          placeholder="title..."
+                          v-model="ingredientData.name"
                         />
+                        <button class="btn btn-outline-success">+</button>
                       </div>
-                      <input
-                        class="form-control"
-                        type="text"
-                        placeholder="title..."
-                        v-model="ingredientData.name"
-                      />
-                      <button class="btn btn-outline-success">+</button>
-                    </div>
-                  </form>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>

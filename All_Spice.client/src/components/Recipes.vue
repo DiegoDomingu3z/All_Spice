@@ -13,13 +13,13 @@
         </div>
         <div
           v-if="recipes.id == favorite.recipeId"
-          @click="favoriteRecipe"
+          @click.stop="favoriteRecipe"
           class=""
         >
           <i
             class="
               mdi mdi-cards-heart-outline
-              text-danger
+              text-white
               fs-3
               heart-blur
               rounded-bottom
@@ -69,7 +69,7 @@ export default {
       async favoriteRecipe() {
         try {
           await favoritesService.favoriteRecipe({ recipeId: props.recipe.id, accountId: AppState.account.id })
-
+          Pop.toast("Favorite")
         } catch (error) {
           Pop.toast(error.message)
           logger.log(error)

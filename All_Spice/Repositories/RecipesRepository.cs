@@ -32,7 +32,7 @@ namespace All_Spice.Repositories
             }, new { stringQuery }).ToList();
         }
 
-        internal List<Recipe> GetRecipesByAccount(string id)
+        internal List<Recipe>GetRecipesByAccount(string id)
         {
             string sql = @"
             SELECT

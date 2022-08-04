@@ -27,6 +27,8 @@ namespace All_Spice.Controllers
             _ss = ss;
         }
 
+
+        //NOTE put in userInfo just in case you want to add some business logic later down the road
         [HttpGet]
         public async Task<ActionResult<List<Recipe>>> Get(string query)
         {
@@ -110,8 +112,8 @@ namespace All_Spice.Controllers
                 Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
                 recipeData.CreatorId = userInfo.Id;
                 Recipe newRecipe = _rs.Create(recipeData);
-                recipeData.CreatedAt = new DateTime();
                 newRecipe.Creator = userInfo;
+                recipeData.CreatedAt = new DateTime();
                 recipeData.UpdatedAt = new DateTime();
 
                 return Ok(newRecipe);
