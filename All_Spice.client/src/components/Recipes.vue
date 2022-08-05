@@ -11,33 +11,32 @@
             {{ recipe.category }}
           </p>
         </div>
-        <div
-          v-if="recipes.id == favorite.recipeId"
-          @click.stop="favoriteRecipe"
-          class=""
-        >
-          <i
-            class="
-              mdi mdi-cards-heart-outline
-              text-white
-              fs-3
-              heart-blur
-              rounded-bottom
-              p-0
-            "
-          ></i>
-        </div>
-        <div v-else @click="favoriteRecipe" class="">
-          <i
-            class="
-              mdi mdi-heart-outline
-              text-white
-              fs-3
-              heart-blur
-              rounded-bottom
-              p-0
-            "
-          ></i>
+        <div v-if="recipe.creatorId != account.id">
+          <div v-if="isFavorite" class="">
+            <i
+              @click.stop="deleteFavorite(favorite.id)"
+              class="
+                mdi mdi-cards-heart-outline
+                text-danger
+                fs-3
+                heart-blur
+                rounded-bottom
+                p-0
+              "
+            ></i>
+          </div>
+          <div v-else @click.stop="favoriteRecipe" class="">
+            <i
+              class="
+                mdi mdi-heart-outline
+                text-white
+                fs-3
+                heart-blur
+                rounded-bottom
+                p-0
+              "
+            ></i>
+          </div>
         </div>
       </div>
       <div class="details-blur bottom mx-3 rounded">
@@ -86,9 +85,19 @@ export default {
           logger.log(error)
         }
       },
+      async deleteFavorite(id) {
+        try {
+          await favoritesService.deleteFavorite(id)
+        } catch (error) {
+          logger.log(error)
+          Pop.toast(error.message)
+        }
+      },
       account: computed(() => AppState.account),
-      favorite: computed(() => AppState.favorites),
-      recipes: computed(() => AppState.recipes)
+      favorite: computed(() => AppState.myFavorites),
+      recipes: computed(() => AppState.recipes),
+      isFavorite: computed(() => !!AppState.myFavorites.find(f => f.id == props.recipe.id))
+
 
 
     }
