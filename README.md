@@ -10,7 +10,7 @@ ABOUT THE APPLICATION
 All Spice is an application developed to allow users to create recipes and add ingredients and steps to allow other users to closely follow the recipe
 plan. Once logged in users are allowed to add their own recipes for other users to see. All Spices allows users to favorite recipes and create a collection
 of all recipes they have favorited. MySQL was used as the database for this application and the backend being built with C#. The front end was created
-and designed using Vue.js, HTML, CSS and Bootstrap.
+and designed using JavaScript Vue.js, HTML, CSS and Bootstrap.
 
 ``HOW TO USE``
 - Start by logging in
