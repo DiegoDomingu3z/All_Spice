@@ -14,6 +14,15 @@ import { AppState } from '../AppState'
 import { accountService } from '../services/AccountService'
 export default {
   setup() {
+    onMounted(async () => {
+      try {
+        await accountService.getMyRecipes()
+        logger.log(AppState.myRecipes, "better load")
+      } catch (error) {
+        logger.log(error)
+        Pop.toast(error.message)
+      }
+    })
     return {
       recipe: computed(() => AppState.myRecipes)
     }

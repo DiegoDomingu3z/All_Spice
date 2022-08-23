@@ -1,3 +1,5 @@
+-- Active: 1661282352975@@SG-Diego-Dom-6598-mysql-master.servers.mongodirector.com@3306
+
 CREATE TABLE
     IF NOT EXISTS accounts(
         id VARCHAR(255) NOT NULL primary key COMMENT 'primary key',
