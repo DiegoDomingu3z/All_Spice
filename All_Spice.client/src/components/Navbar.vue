@@ -30,7 +30,7 @@
         </div>
         <div class="col-md-12 text-center text-white">
           <h1>All-Spice</h1>
-          <h4>Cherish your family and their cooking</h4>
+          <h4>Cherish your family and their cooking!</h4>
         </div>
         <div class="d-none d-md-block">
           <div class="col-md-12 d-flex justify-content-center">
