@@ -9,7 +9,7 @@ namespace All_Spice.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+
     public class StepsController : ControllerBase
     {
 
@@ -39,6 +39,7 @@ namespace All_Spice.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Step>> CreateAsync([FromBody] Step stepsData)
         {
             try
@@ -56,6 +57,7 @@ namespace All_Spice.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<ActionResult<Step>> Edit(int id, [FromBody] Step stepData)
         {
             try
@@ -74,6 +76,7 @@ namespace All_Spice.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<ActionResult<string>> Delete(int id)
         {
             try
