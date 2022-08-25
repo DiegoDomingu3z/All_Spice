@@ -192,7 +192,7 @@ export default {
         }
       } catch (error) {
         logger.log(error)
-        Pop.toast(error.message)
+        Pop.toast("Please log in to see the ingredients and step!")
       }
     })
     return {
